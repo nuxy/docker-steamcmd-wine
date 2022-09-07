@@ -20,6 +20,11 @@ Run a [Steam](https://store.steampowered.com) powered Windows game server in Doc
 
 In the VS Code _Command Palette_ choose "Open Folder in Container" which will launch the server in a Docker container allowing for realtime development and testing.
 
+## References
+
+- [Database of everything on Steam](https://steamdb.info)
+- [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints)
+
 ## Contributions
 
 If you fix a bug, or have a code you want to contribute, please send a pull-request with your changes.
