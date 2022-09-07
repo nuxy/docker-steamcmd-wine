@@ -1,0 +1,14 @@
+// Testing with Miscreated (https://steamdb.info/app/299740).
+{
+  "name": "steamcmd",
+  "context": "..",
+  "dockerFile": "../Dockerfile",
+  "build": {
+    "args": {
+      "APPID": "302200",
+      "RUNCMD": "Bin64_dedicated/MiscreatedServer.exe +http_startserver +map islands +sv_maxplayers 50 -sv_port 27015 +sv_servername \"Miscreated\""
+    }
+  },
+  "forwardPorts": ["27015:27050"],
+  "overrideCommand": true
+}
