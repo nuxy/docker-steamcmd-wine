@@ -12,7 +12,7 @@ ENV WINEDEBUG -all
 
 WORKDIR /steamcmd
 
-RUN apt -y update && apt -y install apt-utils curl
+RUN apt -y update && apt -y install curl
 RUN curl https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz -s | tar xfz - -C /steamcmd
 RUN ./steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir steamapp +login ${steam_login} +app_update ${steam_appid} +quit
 
