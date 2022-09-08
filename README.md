@@ -20,6 +20,8 @@ Run a [Steam](https://store.steampowered.com) powered Windows game server in Doc
 
 In the VS Code _Command Palette_ choose "Open Folder in Container" which will launch the server in a Docker container allowing for realtime development and testing.
 
+By default, a [Miscreated Dedicated Server](https://steamdb.info/app/302200) will be launched.  To change the game edit the VS Code [`devcontainer.json`](https://github.com/nuxy/docker-steamcmd-wine/blob/develop/.devcontainer/devcontainer.json) and rebuild the Docker container.
+
 ## References
 
 - [Database of everything on Steam](https://steamdb.info)
