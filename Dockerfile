@@ -8,6 +8,8 @@ ENV steam_login "$USERNAME $PASSWORD"
 ENV steam_appid $APPID
 ENV wine_prog $RUNCMD
 
+# Suppress non-blocking warnings.
+ENV DBUS_FATAL_WARNINGS 0
 ENV WINEDEBUG -all
 
 WORKDIR /steamcmd
