@@ -12,10 +12,13 @@ ENV wine_prog $RUNCMD
 ENV DBUS_FATAL_WARNINGS 0
 ENV WINEDEBUG -all
 
-WORKDIR /steamcmd
+WORKDIR /usr/games/steamcmd
 
 RUN apt -y update && apt -y install curl
-RUN curl https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz -s | tar xfz - -C /steamcmd
+RUN curl https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz -s | tar xfz - -C /usr/games/steamcmd
 RUN ./steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir steamapp +login ${steam_login} +app_update ${steam_appid} +quit
 
-CMD "wineconsole steamapp/${wine_prog}"
+# Limit permissions to games group.
+RUN chown -R games:games /usr/games
+
+CMD "sudo -u games wineconsole steamapp/${wine_prog}"
