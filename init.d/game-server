@@ -5,7 +5,7 @@
 # http://www.opensource.org/licenses/mit-license.php
 
 ### BEGIN INIT INFO
-# Provides:          gamed
+# Provides:          game-server
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
@@ -51,7 +51,7 @@ case "$1" in
     ;;
   *)
 
-  log_daemon_msg "Usage: $SCRIPT {start|stop|restart}"
+  log_failure_msg "Usage: $SCRIPT {start|stop|restart}"
   exit 1
 esac
 
