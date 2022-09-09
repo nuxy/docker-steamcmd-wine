@@ -10,5 +10,5 @@
     }
   },
   "forwardPorts": ["27015:27050"],
-  "overrideCommand": false
+  "postStartCommand": "service game-server start"
 }

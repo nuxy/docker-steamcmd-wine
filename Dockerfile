@@ -14,6 +14,8 @@ ENV WINEDEBUG -all
 
 WORKDIR /usr/games/steamcmd
 
+COPY init.d/game-server /etc/init.d/game-server
+
 RUN apt -y update && apt -y install curl
 RUN curl https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz -s | tar xfz - -C /usr/games/steamcmd
 RUN ./steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir steamapp +login ${steam_login} +app_update ${steam_appid} +quit
@@ -21,4 +23,7 @@ RUN ./steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir steama
 # Limit permissions to games group.
 RUN chown -R games:games /usr/games
 
-CMD "sudo -u games wineconsole steamapp/${wine_prog}"
+# Install LSB init and RC scripts.
+RUN update-rc.d game-server defaults && echo "${wine_prog}" > .runcmdrc
+
+CMD ["service", "game-server", "start"]

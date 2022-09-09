@@ -22,6 +22,12 @@ In the VS Code _Command Palette_ choose "Open Folder in Container" which will la
 
 By default, a [Miscreated Dedicated Server](https://steamdb.info/app/302200) will be launched.  To change the game edit the VS Code [`devcontainer.json`](https://github.com/nuxy/docker-steamcmd-wine/blob/develop/.devcontainer/devcontainer.json) and rebuild the Docker container.
 
+## Managing the game server
+
+The following command can be executed within the Docker container:
+
+    $ service game-server {start|stop|restart}
+
 ## References
 
 - [Database of everything on Steam](https://steamdb.info)

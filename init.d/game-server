@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# Copyright 2022, Marc S. Brooks (https://mbrooks.info)
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license.php
+
+### BEGIN INIT INFO
+# Provides:          gamed
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Steam powered Windows game server
+# Description:       Provides commands to manage your game instance.
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+DAEMON=/usr/bin/wineconsole
+SCRIPT=`basename $0`
+BASEDIR=/usr/games/steamcmd
+GAMEDIR=$BASEDIR/steamapp
+USER=games
+
+test -x $DAEMON || exit 0
+
+RUNCMD=`cat $BASEDIR/.runcmdrc`
+
+start() {
+  log_daemon_msg "Starting game instance" "$DAEMON"
+  start-stop-daemon --start --quiet --background --chuid $USER --exec $DAEMON -- $GAMEDIR/$RUNCMD
+  log_end_msg $?
+}
+
+stop() {
+  log_daemon_msg "Stopping game instance" "$DAEMON"
+  start-stop-daemon --stop --quiet --user $USER --oknodo --retry 5
+  log_end_msg $?
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  *)
+
+  log_daemon_msg "Usage: $SCRIPT {start|stop|restart}"
+  exit 1
+esac
+
+exit 0
