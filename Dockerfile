@@ -12,6 +12,9 @@ ENV wine_prog $RUNCMD
 ENV DBUS_FATAL_WARNINGS 0
 ENV WINEDEBUG -all
 
+# Override base image variables.
+ENV RUN_AS_ROOT yes
+
 WORKDIR /usr/games/steamcmd
 
 COPY init.d/game-server /etc/init.d/game-server
@@ -26,4 +29,4 @@ RUN chown -R games:games /usr/games
 # Install LSB init and RC scripts.
 RUN update-rc.d game-server defaults && echo "${wine_prog}" > .runcmdrc
 
-CMD ["service", "game-server", "start"]
+CMD service game-server start & sleep infinity
