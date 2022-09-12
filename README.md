@@ -14,7 +14,11 @@ Run a [Steam](https://store.steampowered.com) powered Windows game server in Doc
 ## Manually starting the container
 
     $ docker build -t steamcmd . --build-arg USERNAME=<steam-username> --build-arg PASSWORD=<steam-password> --build-arg APPID=<steam-appid> --build-arg RUNCMD=<command>
-    $ docker run -it -p 27015:27050 -p 27015:27050/udp steamcmd
+    $ docker run -d -p 27015:27050 -p 27015:27050/udp steamcmd
+
+### Accessing the container
+
+    $ docker exec -it <container-id> /bin/bash
 
 ## Launching in Remote-Containers
 

@@ -28,4 +28,4 @@ RUN chown -R games:games /usr/games
 # Install LSB init and RC scripts.
 RUN update-rc.d game-server defaults && echo "${wine_prog}" > .runcmdrc
 
-CMD service game-server start & sleep infinity
+CMD ["service", "game-server", "start"]

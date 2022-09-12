@@ -31,7 +31,7 @@ export WINEDEBUG=-all
 
 start() {
   log_daemon_msg "Starting game instance" "$DAEMON"
-  start-stop-daemon --start --quiet --background --chuid $USER --exec $DAEMON -- $GAMEDIR/$RUNCMD
+  start-stop-daemon --start --quiet --chuid $USER --exec $DAEMON -- $GAMEDIR/$RUNCMD
   log_end_msg $?
 }
 
