@@ -10,7 +10,6 @@ ENV wine_prog $RUNCMD
 
 # Suppress non-blocking warnings.
 ENV DBUS_FATAL_WARNINGS 0
-ENV WINEDEBUG -all
 
 # Override base image variables.
 ENV RUN_AS_ROOT yes

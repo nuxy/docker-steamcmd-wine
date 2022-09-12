@@ -26,6 +26,9 @@ test -x $DAEMON || exit 0
 
 RUNCMD=`cat $BASEDIR/.runcmdrc`
 
+# Suppress non-blocking warnings.
+export WINEDEBUG=-all
+
 start() {
   log_daemon_msg "Starting game instance" "$DAEMON"
   start-stop-daemon --start --quiet --background --chuid $USER --exec $DAEMON -- $GAMEDIR/$RUNCMD
