@@ -21,6 +21,7 @@ RUN curl https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz 
 RUN ./steamcmd.sh +@sSteamCmdForcePlatformType windows +force_install_dir steamapp +login ${steam_login} +app_update ${steam_appid} +quit
 
 COPY init.d/game-server /etc/init.d/game-server
+COPY files/* /usr/games/steamcmd/steamapp
 COPY launch.sh /usr/games/launch.sh
 
 # Limit permissions to games group.
