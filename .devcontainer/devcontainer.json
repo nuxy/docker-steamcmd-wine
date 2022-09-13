@@ -6,9 +6,8 @@
   "build": {
     "args": {
       "APPID": "302200",
-      "RUNCMD": "Bin64_dedicated/MiscreatedServer.exe +http_startserver +map islands +sv_maxplayers 50 -sv_port 27015 +sv_servername \"Miscreated\""
+      "RUNCMD": "Bin64_dedicated/MiscreatedServer.exe +http_startserver +map islands +sv_maxplayers 50 +sv_servername 'Miscreated'"
     }
   },
-  "forwardPorts": ["27015:27050"],
-  "postStartCommand": "service game-server start"
+  "postStartCommand": "/usr/games/launch.sh"
 }
