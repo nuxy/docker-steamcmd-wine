@@ -36,6 +36,17 @@ The following command can be executed within the Docker container:
 
 In cases where you have an existing game set-up (e.g. configuration, database, workshops) you can synchronize these items during the game installation process by adding them to the `/files` directory.  Mirroring that of the existing game directory, files that already exist will be overwritten.
 
+## Networking workarounds
+
+The most likely culprit to the "I cannot find my server.." issue is one of the following:
+
+1. Your router NAT has limited support for [UPnP &#40;Universal Plug and Play&#41;](https://en.wikipedia.org/wiki/Universal_Plug_and_Play) which results in game loopback requests being denied.  To resolve this you must manually configure [port range forwarding](https://en.wikipedia.org/wiki/Port_forwarding) in your router to mirror the TCP/UDP ports exposed by the game server.  This will ensure routing to your game server occurs within the network.
+2. Your game server binds to the server _internal IP_ vs router _external (public)_ address.  To resolve this you must add an IP alias to your server network device (see below).  Once complete, you must configure the game to launch using that same address thereby ensuring the correct IP is broadcasted to the game network.
+
+### Adding an IP alias (spoofing your external address)
+
+    $ ip a add <ip-address>/24 dev <interface-name>
+
 ## References
 
 - [Database of everything on Steam](https://steamdb.info)
