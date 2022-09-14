@@ -13,7 +13,9 @@ Run a [Steam](https://store.steampowered.com) powered Windows game server in Doc
 
 ## Manually starting the container
 
-    $ docker build -t steamcmd . --build-arg USERNAME=<steam-username> --build-arg PASSWORD=<steam-password> --build-arg APPID=<steam-appid> --build-arg RUNCMD=<command>
+Unless the game you are attempting to run was purchased on [Steam](https://store.steampowered.com), authentication _should not be necessary_ so you can omit the `--build-arg` arguments in the command below.  In cases you do need to authenticate, on first build attempt a [Steam Guard](https://help.steampowered.com/en/faqs/view/06B0-26E6-2CF8-254C) code is generated which is _sent to you by either e-mail or SMS_.  Due to this, you must update the command below to include the `GUARDCODE` value and re-run the build process.
+
+    $ docker build -t steamcmd . --build-arg USERNAME=<steam-username> --build-arg PASSWORD=<steam-password> --build-arg GUARDCODE=<steam-guard-code> --build-arg APPID=<steam-appid> --build-arg RUNCMD=<command>
     $ docker run -d --network host steamcmd
 
 ### Accessing the container

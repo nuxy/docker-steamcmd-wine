@@ -2,9 +2,10 @@ FROM scottyhardy/docker-wine
 
 ARG USERNAME=anonymous
 ARG PASSWORD=
+ARG GUARDCODE=
 ARG APPID=
 ARG RUNCMD=
-ENV steam_login "$USERNAME $PASSWORD"
+ENV steam_login "$USERNAME $PASSWORD $GUARDCODE"
 ENV steam_appid $APPID
 ENV wine_prog $RUNCMD
 
