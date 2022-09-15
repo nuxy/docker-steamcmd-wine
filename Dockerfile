@@ -24,11 +24,11 @@ RUN chown games:games /usr/games
 
 USER games
 
-RUN wineboot --update
+RUN wineboot --update 2> /dev/null
 
 # Install the Steam application.
 RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip && unzip steamcmd.zip -d "$PROGRAM_FILES/Steam" && rm steamcmd.zip
-RUN wine "$PROGRAM_FILES/Steam/steamcmd.exe" +login "$USERNAME" "$PASSWORD" "$GUARDCODE" +app_update "$APPID" +quit
+RUN wine "$PROGRAM_FILES/Steam/steamcmd.exe" +login "$USERNAME" "$PASSWORD" "$GUARDCODE" +app_update "$APPID" +quit 2> /dev/null
 
 USER root
 
