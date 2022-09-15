@@ -8,7 +8,6 @@ ARG RUNCMD=
 
 # Enable console (headless mode)
 ARG HEADLESS=yes
-ENV HEADLESS $HEADLESS
 
 # Suppress non-blocking warnings.
 ENV DBUS_FATAL_WARNINGS 0
@@ -35,6 +34,6 @@ COPY init.d/game-server /etc/init.d/game-server
 COPY launch.sh /usr/games/launch.sh
 
 # Install LSB init and RC scripts.
-RUN update-rc.d game-server defaults && echo "$RUNCMD" > .runcmdrc
+RUN update-rc.d game-server defaults && echo "HEADLESS=$HEADLESS\nRUNCMD='$RUNCMD'" > .game-server
 
 CMD /usr/games/launch.sh
