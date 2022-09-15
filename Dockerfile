@@ -33,7 +33,7 @@ RUN wine "$PROGRAM_FILES/Steam/steamcmd.exe" +login "$USERNAME" "$PASSWORD" "$GU
 USER root
 
 COPY files /usr/games/files
-RUN sudo -u games cp -rf files/* "$PROGRAM_FILES/Steam/steamapps/common/*/" && rm -rf files
+RUN sudo -u games cp -rf files/* "$PROGRAM_FILES"/Steam/steamapps/common/*/ && rm -rf files
 
 COPY init.d/game-server /etc/init.d/game-server
 COPY launch.sh /usr/games/launch.sh
