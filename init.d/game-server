@@ -18,7 +18,8 @@
 
 SCRIPT=`basename $0`
 BASEDIR=/usr/games
-GAMEDIR=$BASEDIR/Steam/steamapps/common/*/
+PROGDIR=$BASEDIR/.wine/drive_c/Program\ Files\ \(x86\)
+GAMEDIR=$PROGDIR/Steam/steamapps/common/*/
 USER=games
 
 . $BASEDIR/.game-server
