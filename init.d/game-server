@@ -18,8 +18,8 @@
 
 DAEMON=/usr/bin/wineconsole
 SCRIPT=`basename $0`
-BASEDIR=/usr/games/steamcmd
-GAMEDIR=$BASEDIR/steamapp
+BASEDIR=/usr/games
+GAMEDIR=$BASEDIR/Steam/steamapps/common/*/
 USER=games
 
 test -x $DAEMON || exit 0
