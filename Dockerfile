@@ -6,6 +6,10 @@ ARG GUARDCODE=
 ARG APPID=
 ARG RUNCMD=
 
+# Enable console (headless mode)
+ARG HEADLESS=yes
+ENV HEADLESS $HEADLESS
+
 # Suppress non-blocking warnings.
 ENV DBUS_FATAL_WARNINGS 0
 

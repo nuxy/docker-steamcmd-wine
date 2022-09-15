@@ -16,12 +16,12 @@
 
 . /lib/lsb/init-functions
 
-DAEMON=/usr/bin/wineconsole
 SCRIPT=`basename $0`
 BASEDIR=/usr/games
 GAMEDIR=$BASEDIR/Steam/steamapps/common/*/
 USER=games
 
+[ "$HEADLESS" = "yes" ] && DAEMON=/usr/bin/wineconsole || DAEMON=/usr/bin/wine
 test -x $DAEMON || exit 0
 
 RUNCMD=`cat $BASEDIR/.runcmdrc`
