@@ -13,7 +13,7 @@ Run a [Steam](https://store.steampowered.com) powered Windows game server in Doc
 
 ## Manually starting the container
 
-Unless the game you are attempting to run was purchased on [Steam](https://store.steampowered.com), authentication _should not be necessary_ so you can omit the `--build-arg` arguments in the command below.  In cases you do need to authenticate, on first build attempt a [Steam Guard](https://help.steampowered.com/en/faqs/view/06B0-26E6-2CF8-254C) code is generated which is _sent to you by either e-mail or SMS_.  Due to this, you must update the command below to include the `GUARDCODE` value and re-run the build process.
+Unless the game you are attempting to run was purchased on the [Steam](https://store.steampowered.com) marketplace **authentication should not be necessary** so you can omit the [Game configuration arguments](#game-configuration-arguments) in the `docker build` command below.  In cases you do need to authenticate, on first build attempt a [Steam Guard](https://help.steampowered.com/en/faqs/view/06B0-26E6-2CF8-254C) code is generated which is _sent to you by either e-mail or SMS_.  Due to this, you must update the command below to include the `GUARDCODE` value and re-run the build process _within 30 seconds_ of receiving the message.
 
     $ docker build -t steamcmd . --build-arg USERNAME=<steam-username> --build-arg PASSWORD=<steam-password> --build-arg GUARDCODE=<steam-guard-code> --build-arg APPID=<steam-appid> --build-arg RUNCMD=<command>
     $ docker run -d --network host steamcmd
@@ -21,6 +21,17 @@ Unless the game you are attempting to run was purchased on [Steam](https://store
 ### Accessing the container
 
     $ docker exec -it <container-id> /bin/bash
+
+### Game configuration arguments
+
+| `--build-arg` | Description             |
+|---------------|-------------------------|
+| USERNAME      | Steam account Username (optional) |
+| PASSWORD      | Steam account Password (optional) |
+| GUARDCODE     | [Steam Guard](https://help.steampowered.com/en/faqs/view/06B0-26E6-2CF8-254C) code (optional) |
+| APPID         | Steam application ID    |
+| RUNCMD        | Commands to run in the app directory. |
+| HEADLESS      | yes &#124; no (default: yes) |
 
 ## Launching in Remote-Containers
 
