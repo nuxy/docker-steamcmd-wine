@@ -51,7 +51,7 @@ The most likely culprit to the "I cannot find my server.." issue is one of the f
 
 ## Game server boot issues
 
-There are games that specifically rely on an integrated version of [Steam UGC](https://partner.steamgames.com/doc/api/ISteamUGC) in order to load [workshop content](https://steamcommunity.com/workshop) (e.g. mods) during the game initialization phase.  Since this package uses the Linux-based variant of the Steam client (`steamcmd.sh`) there are cases where those type of operations fail resulting in a hung game server.  If you require Steam workshops, I'm currently evaluating a Windows specific release (`steamcmd.exe`) of this package to resolve this issue that can be [found here](https://github.com/nuxy/docker-steamcmd-wine/tree/windows).
+There are games that specifically rely on an integrated version of [Steam UGC](https://partner.steamgames.com/doc/api/ISteamUGC) in order to load [workshop content](https://steamcommunity.com/workshop) (e.g. mods) during the game initialization phase.  Since this package uses the Linux-based variant of the Steam client (`steamcmd.sh`) there are cases where those type of operations fail resulting in a hung game server.  If you require Steam workshops, I'm currently evaluating a Windows specific release (`steamcmd.exe`) of this package to resolve this issue that can be [found here](https://github.com/nuxy/docker-steamcmd-wine/tree/develop-windows).
 
 ## References
 
