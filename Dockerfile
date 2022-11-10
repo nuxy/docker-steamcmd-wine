@@ -14,26 +14,22 @@ ENV DBUS_FATAL_WARNINGS 0
 ENV WINEDEBUG -all
 
 # Override base image variables.
+ENV WINEPREFIX /usr/games/.wine
 ENV RUN_AS_ROOT yes
 
-ENV PROGRAM_FILES /usr/games/.wine/drive_c/Program\ Files\ \(x86\)
+ENV PROGRAM_FILES "$WINEPREFIX"/drive_c/Program\ Files\ \(x86\)
 
 WORKDIR /usr/games
 
-RUN chown games:games /usr/games
-
-USER games
-
-RUN wineboot --update 2> /dev/null
+RUN mkdir -p "$PROGRAM_FILES"
 
 # Install the Steam application.
-RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip && unzip steamcmd.zip -d "$PROGRAM_FILES/Steam" && rm steamcmd.zip
-RUN wine "$PROGRAM_FILES/Steam/steamcmd.exe" +login "$USERNAME" "$PASSWORD" "$GUARDCODE" +app_update "$APPID" +quit 2> /dev/null ; exit 0
-
-USER root
+RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip && unzip steamcmd.zip -d "$PROGRAM_FILES"/Steam && rm steamcmd.zip
+RUN wine "$PROGRAM_FILES"/Steam/steamcmd.exe +login "$USERNAME" "$PASSWORD" "$GUARDCODE" +app_update "$APPID" +quit 2> /dev/null ; exit 0
 
 COPY files /usr/games/files
-RUN sudo -u games cp -rf files/* "$PROGRAM_FILES"/Steam/steamapps/common/*/ && rm -rf files
+RUN cp -rf files/* "$PROGRAM_FILES"/Steam/steamapps/common/*/ && rm -rf files
+RUN chown -R games:games /usr/games
 
 COPY init.d/game-server /etc/init.d/game-server
 COPY launch.sh /usr/games/launch.sh
