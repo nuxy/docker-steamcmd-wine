@@ -34,6 +34,6 @@ COPY init.d/game-server /etc/init.d/game-server
 COPY launch.sh /usr/games/launch.sh
 
 # Install LSB init and RC scripts.
-RUN update-rc.d game-server defaults && echo "HEADLESS=$HEADLESS\nRUNCMD='$RUNCMD'" > .game-server
+RUN update-rc.d game-server defaults && echo "HEADLESS=$HEADLESS\nRUNCMD=\$(cat <<EOL\n$RUNCMD\nEOL\n)" > .game-server
 
 CMD /usr/games/launch.sh
