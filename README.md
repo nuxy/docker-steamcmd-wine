@@ -54,7 +54,9 @@ In cases where you have an existing game set-up (e.g. configuration, database, w
 The most likely culprit to the "I cannot find my server.." issue is one of the following:
 
 1. Your router NAT has limited support for [UPnP &#40;Universal Plug and Play&#41;](https://en.wikipedia.org/wiki/Universal_Plug_and_Play) which results in game loopback requests being denied.  To resolve this you must manually configure [port range forwarding](https://en.wikipedia.org/wiki/Port_forwarding) in your router to mirror the TCP/UDP ports exposed by the game server.  This will ensure routing to your game server occurs within the network.
-2. Your game server binds to the server _internal IP_ vs router _external (public)_ address.  To resolve this you must add an IP alias to your server network device (see below).  Once complete, you must configure the game to launch using that same address thereby ensuring the correct IP is broadcasted to the game network.
+2. Your game server binds to the server _internal IP_ vs router _external (public)_ address.  To resolve this you must add an IP alias to your server network device (see below).  Once complete, you _*may need to configure the game_ to launch using that same address thereby ensuring the correct IP is broadcasted to the game network.
+
+(*) Entirely dependent on your network set-up (e.g. corporate vs home) and in most cases is not required.
 
 ### Adding an IP alias (spoofing your external address)
 
