@@ -32,6 +32,8 @@ Unless the game you are attempting to run was purchased on the [Steam](https://s
 | APPID         | Steam application ID    |
 | RUNCMD        | Commands to run in the app directory. |
 | HEADLESS      | yes &#124; no (default: yes) |
+| RDP_SERVER    | yes &#124; no (default: no)  |
+| RDP_PASSWD    | System account Password (default: `games`) |
 
 ## Launching in Remote-Containers
 
@@ -62,9 +64,25 @@ The most likely culprit to the "I cannot find my server.." issue is one of the f
 
     $ ip a add <ip-address>/24 dev <interface-name>
 
-## Game server boot issues
+## Connecting with an RDP client
 
-There are games that specifically rely on an integrated version of [Steam UGC](https://partner.steamgames.com/doc/api/ISteamUGC) in order to load [workshop content](https://steamcommunity.com/workshop) (e.g. mods) during the game initialization phase.  Since this package uses the Linux-based variant of the Steam client (`steamcmd.sh`) there are cases where those type of operations fail resulting in a hung game server.  If you require Steam workshops, I'm currently evaluating a Windows specific release (`steamcmd.exe`) of this package to resolve this issue that can be [found here](https://github.com/nuxy/docker-steamcmd-wine/tree/develop-windows).
+If the container was started with `RDP_SERVER=yes` you can make a remote desktop connection using a client-side application supported by your operating system.
+
+| Application | Operating System |
+|-------------|------------------|
+| [Microsoft Remote Desktop](https://play.google.com/store/apps/details?id=com.microsoft.rdc.androidx) | Android |
+| [Microsoft Remote Desktop](https://apps.apple.com/us/app/microsoft-remote-desktop/id1295203466) | OSX, iOS |
+| [Microsoft Remote Desktop](https://apps.microsoft.com/store/detail/microsoft-remote-desktop/9WZDNCRFJ3PS) | Windows |
+| [Reminna Remote Desktop Client](https://remmina.org/remmina-rdp) | Linux |
+
+### Login credentials
+
+Unless `RDP_PASSWD` has been defined, you can login to the server using the following account information:
+
+```txt
+Username: games
+Password: games
+```
 
 ## References
 
