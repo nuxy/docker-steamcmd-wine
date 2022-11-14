@@ -17,16 +17,12 @@ ENV RDP_SERVER "$RDP_SERVER"
 # Suppress non-blocking warnings.
 ENV DBUS_FATAL_WARNINGS 0
 ENV WINEDEBUG -all
-
-# Override base image variables.
 ENV WINEPREFIX /usr/games/.wine
-ENV RUN_AS_ROOT yes
 
 ENV PROGRAM_FILES "$WINEPREFIX"/drive_c/Program\ Files\ \(x86\)
+RUN mkdir -p "$PROGRAM_FILES"
 
 WORKDIR /usr/games
-
-RUN mkdir -p "$PROGRAM_FILES"
 
 # Install the Steam application.
 RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip && unzip steamcmd.zip -d "$PROGRAM_FILES"/Steam && rm steamcmd.zip
@@ -37,7 +33,6 @@ RUN cp -rf files/* "$PROGRAM_FILES"/Steam/steamapps/common/*/ && rm -rf files
 RUN chown -R games:games /usr/games
 
 COPY init.d/game-server /etc/init.d/game-server
-COPY launch.sh /usr/games/launch.sh
 
 # Install LSB init and RC scripts.
 RUN update-rc.d game-server defaults && echo "HEADLESS=$HEADLESS\nRUNCMD=\$(cat <<EOL\n$RUNCMD\nEOL\n)" > .game-server
@@ -49,4 +44,5 @@ COPY config /usr/games/.config
 RUN sed -i 's/allow_channels=true/allow_channels=false/g' /etc/xrdp/xrdp.ini
 RUN mv /usr/games/.config/user-dirs.conf /etc/xdg/user-dirs.defaults
 
+COPY launch.sh /usr/games/launch.sh
 ENTRYPOINT /usr/games/launch.sh
