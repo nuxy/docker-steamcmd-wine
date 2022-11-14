@@ -28,9 +28,6 @@ WORKDIR /usr/games
 
 RUN mkdir -p "$PROGRAM_FILES"
 
-# Configure shell environment.
-RUN [ "$RDP_SERVER" = "yes" ] && usermod --password "$(openssl passwd -1 -salt $(openssl rand -base64 6) $RDP_PASSWD)" --shell /bin/bash games
-
 # Install the Steam application.
 RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip && unzip steamcmd.zip -d "$PROGRAM_FILES"/Steam && rm steamcmd.zip
 RUN wine "$PROGRAM_FILES"/Steam/steamcmd.exe +login "$USERNAME" "$PASSWORD" "$GUARDCODE" +app_update "$APPID" +quit 2> /dev/null ; exit 0
@@ -45,4 +42,11 @@ COPY launch.sh /usr/games/launch.sh
 # Install LSB init and RC scripts.
 RUN update-rc.d game-server defaults && echo "HEADLESS=$HEADLESS\nRUNCMD=\$(cat <<EOL\n$RUNCMD\nEOL\n)" > .game-server
 
-CMD /usr/games/launch.sh
+# Configure RDP dependencies.
+RUN [ "$RDP_SERVER" = "yes" ] && usermod --password "$(openssl passwd -1 -salt $(openssl rand -base64 6) $RDP_PASSWD)" --shell /bin/bash games
+
+COPY config /usr/games/.config
+RUN sed -i 's/allow_channels=true/allow_channels=false/g' /etc/xrdp/xrdp.ini
+RUN mv /usr/games/.config/user-dirs.conf /etc/xdg/user-dirs.defaults
+
+ENTRYPOINT /usr/games/launch.sh
