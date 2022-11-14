@@ -31,6 +31,7 @@ RUN wine "$PROGRAM_FILES"/Steam/steamcmd.exe +login "$USERNAME" "$PASSWORD" "$GU
 COPY files /usr/games/files
 RUN cp -rf files/* "$PROGRAM_FILES"/Steam/steamapps/common/*/ && rm -rf files
 RUN chown -R games:games /usr/games
+RUN ln -s "$PROGRAM_FILES"/Steam /usr/games/Steam
 
 COPY init.d/game-server /etc/init.d/game-server
 
@@ -38,7 +39,7 @@ COPY init.d/game-server /etc/init.d/game-server
 RUN update-rc.d game-server defaults && echo "HEADLESS=$HEADLESS\nRUNCMD=\$(cat <<EOL\n$RUNCMD\nEOL\n)" > .game-server
 
 # Configure RDP dependencies.
-RUN [ "$RDP_SERVER" = "yes" ] && usermod --password "$(openssl passwd -1 -salt $(openssl rand -base64 6) $RDP_PASSWD)" --shell /bin/bash games
+RUN [ "$RDP_SERVER" = "yes" ] & usermod --password "$(openssl passwd -1 -salt $(openssl rand -base64 6) $RDP_PASSWD)" --shell /bin/bash games
 
 COPY config /usr/games/.config
 RUN sed -i 's/allow_channels=true/allow_channels=false/g' /etc/xrdp/xrdp.ini
