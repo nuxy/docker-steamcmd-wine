@@ -62,7 +62,8 @@ The most likely culprit to the "I cannot find my server.." issue is one of the f
 
 ### Adding an IP alias (spoofing your external address)
 
-    $ ip a add <ip-address>/24 dev <interface-name>
+    $ sudo ip a add <ip-address>/24 dev <interface-name>
+    $ sudo echo "<ip-address> localhost" >> /etc/hosts
 
 ## Connecting with an RDP client
 
