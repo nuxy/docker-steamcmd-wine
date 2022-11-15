@@ -88,6 +88,7 @@ Password: games
 
 - [Database of everything on Steam](https://steamdb.info)
 - [Runtime options with Memory, CPUs, and GPUs](https://docs.docker.com/config/containers/resource_constraints)
+- [Required Ports for Steam](https://help.steampowered.com/en/faqs/view/2EA8-4D75-DA21-31EB)
 
 ## Contributions
 
