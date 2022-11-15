@@ -27,11 +27,11 @@ WORKDIR /usr/games
 # Install the Steam application.
 RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip && unzip steamcmd.zip -d "$PROGRAM_FILES"/Steam && rm steamcmd.zip
 RUN wine "$PROGRAM_FILES"/Steam/steamcmd.exe +login "$USERNAME" "$PASSWORD" "$GUARDCODE" +app_update "$APPID" +quit 2> /dev/null ; exit 0
+RUN ln -s "$PROGRAM_FILES"/Steam /usr/games/Steam
 
 COPY files /usr/games/files
-RUN cp -rf files/* "$PROGRAM_FILES"/Steam/steamapps/common/*/ && rm -rf files
+RUN find /usr/games/Steam/steamapps/common/* -maxdepth 0 -not -name "Steamworks Shared" | xargs -I{} cp -rf files/* {} && rm -rf files
 RUN chown -R games:games /usr/games
-RUN ln -s "$PROGRAM_FILES"/Steam /usr/games/Steam
 
 COPY init.d/game-server /etc/init.d/game-server
 
