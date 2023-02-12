@@ -30,7 +30,9 @@ RUN wine "$PROGRAM_FILES"/Steam/steamcmd.exe +login "$USERNAME" "$PASSWORD" "$GU
 RUN ln -s "$PROGRAM_FILES"/Steam /usr/games/Steam
 
 COPY files /usr/games/files
-RUN find /usr/games/Steam/steamapps/common/* -maxdepth 0 -not -name "Steamworks Shared" | xargs -I{} cp -rf files/* {} && rm -rf files
+
+RUN mkdir /usr/games/Steam/steamapps/common
+RUN find /usr/games/Steam/steamapps/common -maxdepth 0 -not -name "Steamworks Shared" | xargs -I{} cp -rf files/* {} && rm -rf files
 RUN chown -R games:games /usr/games
 
 COPY init.d/game-server /etc/init.d/game-server
