@@ -31,7 +31,7 @@ RUN ln -s "$PROGRAM_FILES"/Steam /usr/games/Steam
 
 COPY files /usr/games/files
 
-RUN mkdir /usr/games/Steam/steamapps/common
+RUN mkdir -p /usr/games/Steam/steamapps/common
 RUN find /usr/games/Steam/steamapps/common -maxdepth 0 -not -name "Steamworks Shared" | xargs -I{} cp -rf files/* {} && rm -rf files
 RUN chown -R games:games /usr/games
 
@@ -41,7 +41,7 @@ COPY init.d/game-server /etc/init.d/game-server
 RUN update-rc.d game-server defaults && echo "HEADLESS=$HEADLESS\nRUNCMD=\$(cat <<EOL\n$RUNCMD\nEOL\n)" > .game-server
 
 # Configure RDP dependencies.
-RUN [ "$RDP_SERVER" = "yes" ] & usermod --password "$(openssl passwd -1 -salt $(openssl rand -base64 6) $RDP_PASSWD)" --shell /bin/bash games
+RUN if [ "$RDP_SERVER" = yes ]; then usermod --password "$(openssl passwd -1 -salt $(openssl rand -base64 6) $RDP_PASSWD)" --shell /bin/bash games; fi
 
 COPY config /usr/games/.config
 RUN sed -i 's/allow_channels=true/allow_channels=false/g' /etc/xrdp/xrdp.ini
