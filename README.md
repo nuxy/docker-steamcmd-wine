@@ -60,10 +60,10 @@ The most likely culprit to the "I cannot find my server.." issue is one of the f
 
 (*) Entirely dependent on your network set-up (e.g. corporate vs home) and in most cases is not required.
 
-### Adding an IP alias (spoofing your external address)
+### Adding an IP alias (spoofing your [external IP address](https://www.whatismyip.com))
 
     $ sudo ip a add <ip-address>/24 dev <interface-name>
-    $ sudo echo "<ip-address> localhost" >> /etc/hosts
+    $ sudo sh -c "echo '<ip-address> localhost' >> /etc/hosts"
 
 ## Connecting with an RDP client
 
