@@ -33,9 +33,10 @@ WORKDIR /usr/games
 # Install the Steam application.
 RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip && unzip steamcmd.zip -d "$PROGRAM_FILES"/Steam && rm steamcmd.zip
 RUN wine "$PROGRAM_FILES"/Steam/steamcmd.exe +login "$USERNAME" "$PASSWORD" "$GUARDCODE" +app_update "$APPID" +quit 2> /dev/null ; exit 0
-RUN ln -s "$PROGRAM_FILES"/Steam /usr/games/Steam
-RUN mkdir -p /usr/games/Steam/steamapps/common
-RUN find /usr/games/Steam/steamapps/common -maxdepth 0 -not -name "Steamworks Shared" | xargs -I{} cp -rf files/* {} && rm -rf files
+
+# Install Steam app dependencies.
+RUN ln -s "$PROGRAM_FILES"/Steam /usr/games/Steam && mkdir -p /usr/games/Steam/steamapps/common && \
+    find /usr/games/Steam/steamapps/common -maxdepth 0 -not -name "Steamworks Shared" | xargs -I{} cp -rf files/* {} && rm -rf files
 
 USER root
 
