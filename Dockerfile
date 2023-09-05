@@ -22,18 +22,22 @@ ENV WINEPREFIX /usr/games/.wine
 ENV PROGRAM_FILES "$WINEPREFIX"/drive_c/Program\ Files\ \(x86\)
 RUN mkdir -p "$PROGRAM_FILES"
 
+COPY files /usr/games/files
+
+RUN usermod --shell /bin/bash games && chown -R games:games /usr/games
+
+USER games
+
 WORKDIR /usr/games
 
 # Install the Steam application.
 RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip && unzip steamcmd.zip -d "$PROGRAM_FILES"/Steam && rm steamcmd.zip
 RUN wine "$PROGRAM_FILES"/Steam/steamcmd.exe +login "$USERNAME" "$PASSWORD" "$GUARDCODE" +app_update "$APPID" +quit 2> /dev/null ; exit 0
 RUN ln -s "$PROGRAM_FILES"/Steam /usr/games/Steam
-
-COPY files /usr/games/files
-
 RUN mkdir -p /usr/games/Steam/steamapps/common
 RUN find /usr/games/Steam/steamapps/common -maxdepth 0 -not -name "Steamworks Shared" | xargs -I{} cp -rf files/* {} && rm -rf files
-RUN chown -R games:games /usr/games
+
+USER root
 
 COPY init.d/game-server /etc/init.d/game-server
 
