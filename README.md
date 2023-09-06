@@ -85,6 +85,10 @@ Username: games
 Password: games
 ```
 
+## Related projects
+
+- [aws-ec2-miscreated](https://github.com/nuxy/aws-ec2-miscreated)
+
 ## References
 
 - [Database of everything on Steam](https://steamdb.info)
