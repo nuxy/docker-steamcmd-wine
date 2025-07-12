@@ -1,13 +1,19 @@
-// Testing with Miscreated (https://steamdb.info/app/302200).
+// Testing with SCUM (https://steamdb.info/app/3792580).
 {
   "name": "steamcmd",
   "context": "..",
   "dockerFile": "../Dockerfile",
   "build": {
     "args": {
-      "APPID": "302200",
-      "RUNCMD": "Bin64_dedicated/MiscreatedServer.exe +sv_maxplayers 10 +sv_servername 'Miscreated' +http_startserver +map islands"
+      "APPID": "3792580",
+      "RUNCMD": "SCUM/Binaries/Win64/SCUMServer.exe -log -port=7777 -MaxPlayers=3"
     }
   },
+  "appPort": [
+    "7777/tcp",
+    "7777/udp",
+    "7779/tcp",
+    "7779/udp"
+  ],
   "postStartCommand": "/usr/games/launch.sh"
 }
