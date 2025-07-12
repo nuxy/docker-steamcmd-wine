@@ -17,9 +17,10 @@ ENV RDP_SERVER "$RDP_SERVER"
 # Suppress non-blocking warnings.
 ENV DBUS_FATAL_WARNINGS 0
 ENV WINEDEBUG -all
-ENV WINEPREFIX /usr/games/.wine
 
-ENV PROGRAM_FILES "$WINEPREFIX"/drive_c/Program\ Files\ \(x86\)
+# Setup Windows "Program Files"
+ENV WINEPREFIX /usr/games/.wine
+ENV PROGRAM_FILES "$WINEPREFIX/drive_c/Program Files (x86)"
 RUN mkdir -p "$PROGRAM_FILES"
 
 COPY files /usr/games/files
