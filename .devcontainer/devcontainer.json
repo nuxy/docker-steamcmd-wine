@@ -10,10 +10,10 @@
     }
   },
   "appPort": [
-    "7777/tcp",
-    "7777/udp",
-    "7779/tcp",
-    "7779/udp"
+    "7777/tcp", // RCON for remote console server access (optional)
+    "7777/udp", // Game client port
+    "7778/udp", // Raw UDP socket port
+    "7779/udp"  // Query port for Steam's server browser
   ],
   "postStartCommand": "/usr/games/launch.sh"
 }
