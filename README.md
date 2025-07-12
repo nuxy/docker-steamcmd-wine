@@ -87,7 +87,7 @@ Password: games
 
 ## Related projects
 
-- [aws-ec2-miscreated](https://github.com/nuxy/aws-ec2-miscreated)
+- [aws-ec2-scum](https://github.com/nuxy/aws-ec2-scum)
 
 ## References
 
