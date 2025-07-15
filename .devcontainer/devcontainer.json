@@ -13,7 +13,8 @@
     "7777/tcp", // RCON for remote console server access (optional)
     "7777/udp", // Game client port
     "7778/udp", // Raw UDP socket port
-    "7779/udp"  // Query port for Steam's server browser
+    "7779/tcp", // Query port for Steam's server browser
+    "7779/udp"  // ..
   ],
   "postStartCommand": "/usr/games/launch.sh"
 }
