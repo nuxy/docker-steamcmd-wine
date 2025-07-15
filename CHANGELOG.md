@@ -16,3 +16,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0) a
 - Replaced Miscreated server example (now SCUM)
 - Added VS Code extensions/settings
 - Merged Dockerfile  operations to a single line
+
+### [1.2.1] - 2025-07-15
+
+- Added note regarding demo limitations
