@@ -1,4 +1,4 @@
-# docker-steamcmd-wine
+# docker-steamcmd-wine [![NO AI](https://raw.githubusercontent.com/nuxy/no-ai-badge/master/badge.svg)](https://github.com/nuxy/no-ai-badge)
 
 Run a [Steam](https://store.steampowered.com) powered Windows game server in Docker.
 
@@ -39,7 +39,7 @@ Unless the game you are attempting to run was purchased on the [Steam](https://s
 
 In the VS Code _Command Palette_ choose "Open Folder in Container" which will launch the server in a Docker container allowing for realtime development and testing.
 
-By default, a [SCUM Dedicated Server](https://steamdb.info/app/3792580) will be launched.  To change the game edit the VS Code [`devcontainer.json`](https://github.com/nuxy/docker-steamcmd-wine/blob/develop/.devcontainer/devcontainer.json) and rebuild the Docker container.
+By default, a [SCUM Dedicated Server](https://steamdb.info/app/3792580) will be launched.  To change the game edit the VS Code [`devcontainer.json`](https://github.com/nuxy/docker-steamcmd-wine/blob/master/.devcontainer/devcontainer.json) and rebuild the Docker container.
 
 ## Managing the game server
 
