@@ -22,12 +22,12 @@ I'm submitting a..
   Nested containers may/not work as expected.
 -->
 
-### Docker version, build ID
+### Docker version
 
-19.03.13, build 4484c46d9d
+29.1.3
 
 <!--
-  Docker minimum supported version (19.x)
+  Docker minimum supported version (29.x)
     run `docker -v`
 -->
 
