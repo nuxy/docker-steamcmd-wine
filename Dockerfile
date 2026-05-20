@@ -12,15 +12,15 @@ ARG HEADLESS=yes
 # Enable remote desktop access.
 ARG RDP_SERVER=no
 ARG RDP_PASSWD=games
-ENV RDP_SERVER "$RDP_SERVER"
+ENV RDP_SERVER="$RDP_SERVER"
 
 # Suppress non-blocking warnings.
-ENV DBUS_FATAL_WARNINGS 0
-ENV WINEDEBUG -all
+ENV DBUS_FATAL=WARNINGS 0
+ENV WINEDEBUG=-all
 
 # Setup Windows "Program Files"
-ENV WINEPREFIX /usr/games/.wine
-ENV PROGRAM_FILES "$WINEPREFIX/drive_c/Program Files (x86)"
+ENV WINEPREFIX=/usr/games/.wine
+ENV PROGRAM_FILES="$WINEPREFIX/drive_c/Program Files (x86)"
 RUN mkdir -p "$PROGRAM_FILES"
 
 COPY files /usr/games/files
