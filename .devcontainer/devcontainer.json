@@ -6,7 +6,7 @@
   "build": {
     "args": {
       "APPID": "3792580",
-      "RUNCMD": "SCUM/Binaries/Win64/SCUMServer.exe -log -port=7777 -MaxPlayers=3"
+      "RUNCMD": "SCUM/Binaries/Win64/SCUMServer.exe -log -nobattleye -port=7777 -MaxPlayers=3"
     }
   },
   "appPort": [
