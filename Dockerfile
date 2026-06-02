@@ -1,3 +1,6 @@
+# syntax=docker/dockerfile:1
+# check=skip=JSONArgsRecommended,SecretsUsedInArgOrEnv
+
 FROM scottyhardy/docker-wine
 
 ARG USERNAME=anonymous
