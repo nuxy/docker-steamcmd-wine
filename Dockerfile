@@ -15,7 +15,7 @@ ARG RDP_PASSWD=games
 ENV RDP_SERVER="$RDP_SERVER"
 
 # Suppress non-blocking warnings.
-ENV DBUS_FATAL=WARNINGS 0
+ENV DBUS_FATAL="WARNINGS 0"
 ENV WINEDEBUG=-all
 
 # Setup Windows "Program Files"
