@@ -1,20 +1,15 @@
-# syntax=docker/dockerfile:1
-# check=skip=JSONArgsRecommended,SecretsUsedInArgOrEnv
+#
+# Copyright 2022-2026, Marc S. Brooks (https://mbrooks.info)
+# Licensed under the MIT license:
+# http://www.opensource.org/licenses/mit-license.php
 
 FROM scottyhardy/docker-wine
-
-ARG USERNAME=anonymous
-ARG PASSWORD=
-ARG GUARDCODE=
-ARG APPID=
-ARG RUNCMD=
 
 # Enable console (headless mode)
 ARG HEADLESS=yes
 
 # Enable remote desktop access.
 ARG RDP_SERVER=no
-ARG RDP_PASSWD=games
 ENV RDP_SERVER="$RDP_SERVER"
 
 # Suppress non-blocking warnings.
@@ -36,7 +31,6 @@ WORKDIR /usr/games
 
 # Install the Steam application.
 RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip && unzip steamcmd.zip -d "$PROGRAM_FILES"/Steam && rm steamcmd.zip
-RUN wine "$PROGRAM_FILES"/Steam/steamcmd.exe +login "$USERNAME" "$PASSWORD" "$GUARDCODE" +app_update "$APPID" +quit 2> /dev/null ; exit 0
 
 # Install Steam app dependencies.
 RUN ln -s "$PROGRAM_FILES"/Steam /usr/games/Steam && mkdir -p /usr/games/Steam/steamapps/common && \
@@ -47,14 +41,12 @@ USER root
 COPY init.d/game-server /etc/init.d/game-server
 
 # Install LSB init and RC scripts.
-RUN update-rc.d game-server defaults && echo "HEADLESS=$HEADLESS\nRUNCMD=\$(cat <<EOL\n$RUNCMD\nEOL\n)" > .game-server
-
-# Configure RDP dependencies.
-RUN if [ "$RDP_SERVER" = yes ]; then usermod --password "$(openssl passwd -1 -salt $(openssl rand -base64 6) $RDP_PASSWD)" --shell /bin/bash games; fi
+RUN update-rc.d game-server defaults
 
 COPY config /usr/games/.config
 RUN sed -i 's/allow_channels=true/allow_channels=false/g' /etc/xrdp/xrdp.ini
 RUN mv /usr/games/.config/user-dirs.conf /etc/xdg/user-dirs.defaults
 
 COPY launch.sh /usr/games/launch.sh
-ENTRYPOINT /usr/games/launch.sh
+
+ENTRYPOINT ["/usr/games/launch.sh"]

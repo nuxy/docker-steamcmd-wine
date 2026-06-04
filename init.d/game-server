@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright 2022-2023, Marc S. Brooks (https://mbrooks.info)
+# Copyright 2022-2026, Marc S. Brooks (https://mbrooks.info)
 # Licensed under the MIT license:
 # http://www.opensource.org/licenses/mit-license.php
 
@@ -15,14 +15,13 @@
 ### END INIT INFO
 
 . /lib/lsb/init-functions
+. /var/run/docker-env
 
 SCRIPT=`basename $0`
 BASEDIR=/usr/games
 PROGDIR=$BASEDIR/.wine/drive_c/Program\ Files\ \(x86\)
 GAMEDIR=$PROGDIR/Steam/steamapps/common
 USER=games
-
-. $BASEDIR/.game-server
 
 [ "$HEADLESS" = "yes" ] && DAEMON=/usr/bin/wineconsole || DAEMON=/usr/bin/wine
 test -x $DAEMON || exit 0
@@ -31,6 +30,10 @@ test -x $DAEMON || exit 0
 export WINEDEBUG=-all
 
 start() {
+
+  # Check for game updates
+  update
+
   log_daemon_msg "Starting game instance" "$DAEMON"
   start-stop-daemon --start --quiet --background --chuid $USER --exec $DAEMON -- "$GAMEDIR"/*/$RUNCMD
   log_end_msg $?
@@ -39,6 +42,13 @@ start() {
 stop() {
   log_daemon_msg "Stopping game instance" "$DAEMON"
   start-stop-daemon --stop --quiet --user $USER --oknodo --retry 5
+  log_end_msg $?
+}
+
+update() {
+  log_daemon_msg "Updating game instance" "$DAEMON"
+  $DAEMON "$PROGDIR"/Steam/steamcmd.exe +login "$USERNAME" "$PASSWORD" "$GUARDCODE" +app_update "$APPID" +quit 2> /dev/null
+  chown -R $USER "$GAMEDIR"
   log_end_msg $?
 }
 
@@ -53,9 +63,14 @@ case "$1" in
     stop
     start
     ;;
+  update)
+    stop
+    update
+    start
+    ;;
   *)
 
-  log_failure_msg "Usage: $SCRIPT {start|stop|restart}"
+  log_failure_msg "Usage: $SCRIPT {start|stop|restart|update}"
   exit 1
 esac
 

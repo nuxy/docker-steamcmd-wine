@@ -13,27 +13,40 @@ Run a [Steam](https://store.steampowered.com) powered Windows game server in Doc
 
 ## Manually starting the container
 
-Unless the game you are attempting to run was purchased on the [Steam](https://store.steampowered.com) marketplace **authentication should not be necessary** so you can omit the [Game configuration arguments](#game-configuration-arguments) in the `docker build` command below.  In cases you do need to authenticate, on first build attempt a [Steam Guard](https://help.steampowered.com/en/faqs/view/06B0-26E6-2CF8-254C) code is generated which is _sent to you by either e-mail or SMS_.  Due to this, you must update the command below to include the `GUARDCODE` value and re-run the build process _within 30 seconds_ of receiving the message.
+Unless the game you are attempting to run was purchased on the [Steam](https://store.steampowered.com) marketplace **authentication should not be necessary** so you can omit the [Server configuration options](#server-configuration-options) in the `docker run` mount example.  In cases you do need to authenticate, on first build attempt a [Steam Guard](https://help.steampowered.com/en/faqs/view/06B0-26E6-2CF8-254C) code is generated which is _sent to you by either e-mail or SMS_.  Due to this, you must update the mounted file to include the `GUARDCODE` value and re-run the build process _within 30 seconds_ of receiving the message.
 
-    $ docker build -t steamcmd . --build-arg USERNAME=<steam-username> --build-arg PASSWORD=<steam-password> --build-arg GUARDCODE=<steam-guard-code> --build-arg APPID=<steam-appid> --build-arg RUNCMD=<command>
-    $ docker run -d --network host steamcmd
+    $ docker buildx build -t steamcmd .
+    $ docker run -d --network host --mount type=bind,src=path/to/mount/file,dst=/var/run/docker-env steamcmd
 
 ### Accessing the container
 
     $ docker exec -it <container-id> /bin/bash
 
-### Game configuration arguments
+### Docker build arguments
 
-| `--build-arg` | Description             |
-|---------------|-------------------------|
-| USERNAME      | Steam account Username (optional) |
-| PASSWORD      | Steam account Password (optional) |
-| GUARDCODE     | [Steam Guard](https://help.steampowered.com/en/faqs/view/06B0-26E6-2CF8-254C) code (optional) |
-| APPID         | Steam application ID    |
-| RUNCMD        | Commands to run in the app directory. |
+| `--build-arg` | Description                  |
+|---------------|------------------------------|
 | HEADLESS      | yes &#124; no (default: yes) |
 | RDP_SERVER    | yes &#124; no (default: no)  |
-| RDP_PASSWD    | System account Password (default: `games`) |
+
+### Server configuration options
+
+| Name       | Description                                |
+|------------|--------------------------------------------|
+| USERNAME   | Steam account Username (optional)          |
+| PASSWORD   | Steam account Password (optional)          |
+| GUARDCODE  | [Steam Guard](https://help.steampowered.com/en/faqs/view/06B0-26E6-2CF8-254C) code (optional) |
+| APPID      | Steam application ID                       |
+| RUNCMD     | Commands to run in the app directory.      |
+| RDP_PASSWD | System account Password (default: `games`) |
+
+#### `docker run` mount example
+
+```txt
+USERNAME=anonymous
+APPID=12345
+RUNCMD=path/to/game.exe
+```
 
 ## Launching in Remote-Containers
 
