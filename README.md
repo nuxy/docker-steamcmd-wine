@@ -1,4 +1,6 @@
-# docker-steamcmd-wine [![NO AI](https://raw.githubusercontent.com/nuxy/no-ai-badge/master/badge.svg)](https://github.com/nuxy/no-ai-badge)
+# docker-steamcmd-wine
+
+![Docker Image Version (latest)](https://img.shields.io/docker/v/marcsbrooks/docker-steamcmd-wine/latest) ![Docker Pulls](https://img.shields.io/docker/pulls/marcsbrooks/docker-steamcmd-wine) [![](https://img.shields.io/github/v/release/nuxy/docker-steamcmd-wine)](https://github.com/nuxy/docker-steamcmd-wine/releases) [![NO AI](https://raw.githubusercontent.com/nuxy/no-ai-badge/master/badge.svg)](https://github.com/nuxy/no-ai-badge)
 
 Run a [Steam](https://store.steampowered.com) powered Windows game server in Docker.
 
@@ -58,7 +60,9 @@ By default, a [SCUM Dedicated Server](https://steamdb.info/app/3792580) will be 
 
 The following command can be executed within the Docker container:
 
-    $ service game-server {start|stop|restart}
+    $ service game-server {start|stop|restart|update}
+
+Note: Game application sources automatically `update` on service start.
 
 ## Overriding game sources
 
