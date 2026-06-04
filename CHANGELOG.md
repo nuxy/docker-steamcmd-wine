@@ -35,5 +35,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0) a
 
 ### [2.0.0] - 2026-06-03
 
+- [Add support for Docker buildx (breaking changes)](https://github.com/nuxy/docker-steamcmd-wine/issues/4)
 - Support docker `--mount` configuration file
 - Moved game install logic to init script
