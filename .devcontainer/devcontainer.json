@@ -3,12 +3,9 @@
   "name": "steamcmd",
   "context": "..",
   "dockerFile": "../Dockerfile",
-  "build": {
-    "args": {
-      "APPID": "3792580",
-      "RUNCMD": "SCUM/Binaries/Win64/SCUMServer.exe -log -nobattleye -port=7777 -MaxPlayers=3"
-    }
-  },
+  "mounts": [
+    "source=${localWorkspaceFolder}/.mount-example,target=/var/run/docker-env,type=bind"
+  ],
   "appPort": [
     "7777/tcp", // RCON for remote console server access (optional)
     "7777/udp", // Game client port

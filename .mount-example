@@ -1,0 +1,3 @@
+USERNAME=anonymous
+APPID=3792580
+RUNCMD="SCUM/Binaries/Win64/SCUMServer.exe -log -nobattleye -port=7777 -MaxPlayers=3"
